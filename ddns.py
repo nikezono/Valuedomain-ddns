@@ -7,9 +7,20 @@
 import socket
 import urllib
 import sys
+import commands
 
+#まずsocket.gethostbynameで現在のip取得するが
+#なぜかローカルipを取得する場合があるのでその場合ネットワークから取得する
 ip = socket.gethostbyname(socket.gethostname())
+print ip
 
+if(ip.find('192') != -1):
+  ip = commands.getoutput('wget -q -O - ipcheck.ieserver.net')
+  print 'get global ip address from ipcheck.ieserver.net'
+  print ip
+  print
+
+##postメソッドを作成
 def post(domain,password,header):
 
   #hashデータを作る
